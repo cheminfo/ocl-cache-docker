@@ -23,7 +23,6 @@ export default function fromSmiles(fastify: FastifyInstance) {
     },
     getInfo,
   );
-  debug(`currentlyOpen: ${currentlyOpen}`);
 }
 
 async function getInfo(request: FastifyRequest, response: FastifyReply) {
@@ -32,6 +31,7 @@ async function getInfo(request: FastifyRequest, response: FastifyReply) {
     currentlyOpen++;
     const result = await getInfoFromSmiles(body.smiles);
     currentlyOpen--;
+    debug(`currentlyOpen: ${currentlyOpen}`);
     return await response.send({ result });
   } catch (e: any) {
     debug(`Error: ${e.stack}`);
