@@ -10,6 +10,7 @@ import Debug from 'debug';
 const debug = Debug('getInfoFromMolecule');
 
 let stmt: Statement;
+
 export async function getInfoFromMolecule(
   molecule: Molecule,
 ): Promise<MoleculeInfo> {
@@ -23,9 +24,7 @@ export async function getInfoFromMolecule(
     debug('in cache');
     return improve(result);
   }
-
-  const secondResult = await improve(await insertMolecule(idCode, db));
-  return secondResult;
+  return improve(await insertMolecule(idCode, db));
 }
 
 function improve(data: InternalMoleculeInfo): MoleculeInfo {
