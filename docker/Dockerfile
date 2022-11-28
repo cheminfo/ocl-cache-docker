@@ -12,4 +12,4 @@ RUN npm i
 
 COPY tsconfig* /node/
 
-CMD npm start
+CMD debug* npm start
