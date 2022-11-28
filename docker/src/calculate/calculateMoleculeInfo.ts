@@ -76,9 +76,11 @@ function getSSIndex(molecule: Molecule) {
 
 function appendProperties(molecule: Molecule, info: InternalMoleculeInfo) {
   const moleculeProperties = new MoleculeProperties(molecule);
-
+  let fragmentMap: never[] = [];
+  let nbFragments = molecule.getFragmentNumbers(fragmentMap, false, false);
   info.logS = moleculeProperties.logS;
   info.logP = moleculeProperties.logP;
+  info.nbFragments = nbFragments;
   info.acceptorCount = moleculeProperties.acceptorCount;
   info.donorCount = moleculeProperties.donorCount;
   info.rotatableBondCount = moleculeProperties.rotatableBondCount;

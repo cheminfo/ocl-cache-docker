@@ -7,6 +7,7 @@ export type MoleculeInfo = {
   noStereoID: string;
   noStereoTautomerID: string;
   ssIndex: number[];
+  nbFragments: number;
   logS: number;
   logP: number;
   acceptorCount: number;
