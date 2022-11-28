@@ -14,6 +14,8 @@ services:
       - ./sqlite:/node/sqlite
     ports:
       - 127.0.0.1:20822:20822
+    networks:
+      - some-net
 
   process-sdf:
     build: ./docker
@@ -30,3 +32,7 @@ services:
       - ./data/sdf:/node/sdf
       - ./data/smiles:/node/smiles
     command: npm run processSDF
+
+networks:
+  some-net:
+    driver: bridge
