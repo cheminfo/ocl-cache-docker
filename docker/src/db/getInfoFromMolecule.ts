@@ -8,8 +8,7 @@ import { MoleculeInfo } from '../MoleculeInfo';
 import getDB from './getDB';
 import { insertMolecule } from './insertMolecule';
 
-const debug = debugLibrary('getInfoFromMolecule');
-
+const debug = require('debug')('getInfoFromMolecule');
 let stmt: Statement;
 let currentlyOpen = 0;
 export async function getInfoFromMolecule(
