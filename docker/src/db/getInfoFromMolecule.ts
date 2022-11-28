@@ -25,14 +25,12 @@ export async function getInfoFromMolecule(
     debug('in cache');
     currentlyOpen--;
     debug('Currently open: ' + currentlyOpen);
-    console.log('Currently open: ' + currentlyOpen);
     return improve(result);
   }
 
   const secondResult = await improve(await insertMolecule(idCode, db));
   currentlyOpen--;
   debug('Currently open: ' + currentlyOpen);
-  console.log('Currently open: ' + currentlyOpen);
   return secondResult;
 }
 
