@@ -1,5 +1,4 @@
 import { Statement } from 'better-sqlite3';
-import debugLibrary from 'debug';
 import { Molecule } from 'openchemlib';
 
 import { InternalMoleculeInfo } from '../InternalMoleculeInfo';
@@ -7,8 +6,9 @@ import { MoleculeInfo } from '../MoleculeInfo';
 
 import getDB from './getDB';
 import { insertMolecule } from './insertMolecule';
+import Debug from 'debug';
+const debug = Debug('getInfoFromMolecule');
 
-const debug = require('debug')('getInfoFromMolecule');
 let stmt: Statement;
 let currentlyOpen = 0;
 export async function getInfoFromMolecule(
