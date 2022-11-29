@@ -16,5 +16,5 @@ export type MoleculeInfo = {
   rotatableBondCount: number;
   polarSurfaceArea: number;
   unsaturation: number;
-  atom: { [key: string]: number };
+  atom: string;
 };
