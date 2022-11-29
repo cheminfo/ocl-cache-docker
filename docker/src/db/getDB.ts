@@ -28,6 +28,8 @@ CREATE TABLE IF NOT EXISTS molecules (
   noStereoTautomerID data_type TEXT,
   logS data_type REAL,
   nbFragments data_type INT,
+  unsaturation data_type INT,
+  atom data_type OBJECT,
   logP data_type REAL,
   acceptorCount data_type INT,
   donorCount data_type INT,

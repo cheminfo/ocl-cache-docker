@@ -15,4 +15,6 @@ export type MoleculeInfo = {
   stereoCenterCount: number;
   rotatableBondCount: number;
   polarSurfaceArea: number;
+  unsaturation: number;
+  atom: { [key: string]: number };
 };
