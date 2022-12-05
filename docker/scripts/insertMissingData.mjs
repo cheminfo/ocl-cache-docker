@@ -4,7 +4,7 @@ import sqLite from 'better-sqlite3';
 
 import improve from './pool.mjs';
 
-export default async function insertMissingNbFragments() {
+export default async function insertMissingData() {
   const db = getDB();
   let actions = [];
   db.unsafeMode(true);
@@ -70,4 +70,4 @@ export function getDB() {
   return db;
 }
 
-await insertMissingNbFragments();
+await insertMissingData();
