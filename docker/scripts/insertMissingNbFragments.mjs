@@ -15,7 +15,7 @@ export default async function insertMissingNbFragments() {
   for (const molecule of molecules.iterate()) {
     const { idCode, mf } = molecule;
     // the hard limit of promises is 2 milions
-    if (actions.length > 500000) {
+    if (actions.length > 50000) {
       counter += actions.length;
       console.log(`processed ${actions.length} molecules, total: ${counter}`);
       await Promise.all(actions);
