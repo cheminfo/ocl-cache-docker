@@ -13,8 +13,12 @@ export default async function insertMissingData() {
   let counter = 0;
 
   for (const molecule of molecules.iterate()) {
-    const { idCode, mf } = molecule;
+    const { idCode, mf, nbFragments } = molecule;
     // the hard limit of promises is 2 milions
+    // if nbFragments is a number continue
+    if (typeof nbFragments === 'number') {
+      continue;
+    }
     if (actions.length > 50000) {
       counter += actions.length;
       console.log(`processed ${actions.length} molecules, total: ${counter}`);
