@@ -67,6 +67,7 @@
     "openchemlib-utils": "^2.0.0",
     "p-all": "^3.0.0",
     "piscina": "^3.2.0",
-    "sdf-parser": "^6.0.0"
+    "sdf-parser": "^6.0.0",
+    "workerpool": "^6.3.1"
   }
 }

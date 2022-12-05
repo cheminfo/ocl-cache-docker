@@ -1,39 +1,36 @@
-import { existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 
 import sqLite from 'better-sqlite3';
-import debugLibrary from 'debug';
-import MFParser from 'mf-parser';
-import OCL from 'openchemlib';
 
-const { MF } = MFParser;
+import improve from './pool.mjs';
 
 export default async function insertMissingNbFragments() {
   const db = getDB();
+  let actions = [];
   db.unsafeMode(true);
   // iterate all the molecules in the database and check if they have a nbFragments
   const molecules = db.prepare('SELECT * FROM molecules');
-  let start = Date.now();
   let counter = 0;
 
   for (const molecule of molecules.iterate()) {
     const { idCode, mf } = molecule;
-    const mol = OCL.Molecule.fromIDCode(idCode);
-    const mfInfo = new MF(mf).getInfo();
-    let unsaturation = mfInfo.unsaturation;
-    let atom = JSON.stringify(mfInfo.atoms);
-    let fragmentMap = [];
-    let nbFragments = mol.getFragmentNumbers(fragmentMap, false, false);
-    if (Date.now() - start > 10000) {
-      console.log(`processed ${counter} molecules`);
-      start = Date.now();
+    // the hard limit of promises is 2 milions
+    if (actions.length > 500000) {
+      counter += actions.length;
+      console.log(`processed ${actions.length} molecules, total: ${counter}`);
+      await Promise.all(actions);
+      actions.length = 0;
     }
-    counter++;
-    // insert the nbFragments, unsaturation and atom in the corresponding idCode
-    db.prepare(
-      'UPDATE molecules SET nbFragments = ?, unsaturation = ?, atoms = ?  WHERE idCode = ?',
-    ).run(nbFragments, unsaturation, atom, idCode);
+    actions.push(
+      improve(idCode, mf).then((result) => {
+        const { nbFragments, unsaturation, atoms } = result;
+        db.prepare(
+          'UPDATE molecules SET nbFragments = ?, unsaturation = ?, atoms = ? WHERE idCode = ?',
+        ).run(nbFragments, unsaturation, atoms, idCode);
+      }),
+    );
   }
+  await Promise.all(actions);
 }
 export function getDB() {
   let db;
