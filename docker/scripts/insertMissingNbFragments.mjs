@@ -35,7 +35,7 @@ export default async function insertMissingNbFragments() {
 export function getDB() {
   let db;
   // get __dirname
-  const __dirname = new URL('.', import.meta.url).pathname;
+  const __dirname = '/usr/local/docker/ocl-cache-docker/sqlite';
   if (!db) {
     db = sqLite(join(__dirname, 'db.sqlite'));
     // https://www.sqlite.org/wal.html
