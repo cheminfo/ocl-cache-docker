@@ -17,6 +17,7 @@ export default async function insertMissingData() {
     // the hard limit of promises is 2 milions
     // if nbFragments is a number continue
     if (typeof nbFragments === 'number') {
+      counter++;
       continue;
     }
     if (actions.length > 50000) {
